@@ -31,6 +31,15 @@ GitHub OAuth app configuration, user creation, session login, and logout functio
 
 ---
 
+### Add to GitHub Page
+
+<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/e192e0aa-1224-4dcb-95ba-a931e690e80a" />
+
+### 2. Add Application details and Click on submit button
+
+<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/b34e0b80-e626-471e-8818-47bbbb8fdf96" />
+
+
 ## Prerequisites
 - PHP 8.1+
 - Laravel 12
