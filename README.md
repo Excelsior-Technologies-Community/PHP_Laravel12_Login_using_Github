@@ -20,18 +20,21 @@ GitHub OAuth app configuration, user creation, session login, and logout functio
 
 ## Screenshots
 
-### Login Page
+### Home Page
 ![Login Screenshot](https://github.com/user-attachments/assets/ca6f6f70-fca9-45b8-a927-88f517993f22)
 
-### GitHub Authorization Screen
+### Login Page
 ![GitHub Auth](https://github.com/user-attachments/assets/07cd1dab-0e5e-43e7-865a-bf415aebc688)
 
-### Dashboard Page
+### Register Page
 ![Dashboard](https://github.com/user-attachments/assets/668e23a3-d879-4379-a309-efec05457f8b)
+
+### Dashboard Page
+<img width="1909" height="971" alt="image" src="https://github.com/user-attachments/assets/ed1c4156-7313-4077-ad5f-2dc7dd7c26a3" />
 
 ---
 
-### Add to GitHub Page
+### GitHub Authorization Screen
 
 <img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/e192e0aa-1224-4dcb-95ba-a931e690e80a" />
 
