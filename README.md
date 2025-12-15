@@ -35,8 +35,7 @@ GitHub OAuth app configuration, user creation, session login, and logout functio
 ---
 
 ### GitHub Authorization Screen
-
-<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/e192e0aa-1224-4dcb-95ba-a931e690e80a" />
+<img width="1536" height="701" alt="image" src="https://github.com/user-attachments/assets/72bc5baf-c9ab-4abb-ac16-cf1290b9bace" />
 
 ### 2. Add Application details and Click on submit button
 
