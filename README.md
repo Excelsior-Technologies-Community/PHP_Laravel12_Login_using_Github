@@ -39,7 +39,8 @@ GitHub OAuth app configuration, user creation, session login, and logout functio
 
 ### 2. Add Application details and Click on submit button
 
-<img width="1920" height="932" alt="image" src="https://github.com/user-attachments/assets/b34e0b80-e626-471e-8818-47bbbb8fdf96" />
+<img width="1532" height="687" alt="image" src="https://github.com/user-attachments/assets/8d27d085-ce33-4861-9407-f477fd89d9f4" />
+
 
 
 ## Prerequisites
