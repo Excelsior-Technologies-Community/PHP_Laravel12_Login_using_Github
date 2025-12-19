@@ -1,59 +1,276 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PHP_Laravel12_Socialite_GitHub_Login
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A complete Laravel 12 application demonstrating **GitHub OAuth authentication** using **Laravel Socialite**.
+This project explains the full flow from GitHub OAuth app creation to user login, session handling, and logout using a clean and beginner‑friendly approach.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This repository helps developers understand:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* How GitHub OAuth works with Laravel Socialite
+* How to configure OAuth credentials securely
+* How to authenticate users using GitHub
+* How to automatically create users on first login
+* How to manage sessions and logout
 
-## Learning Laravel
+This project is suitable for:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* Laravel beginners
+* OAuth and Social Login learning
+* Interview preparation
+* Reference for Socialite integration
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Features
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* Laravel 12
+* GitHub OAuth Login using Laravel Socialite
+* OAuth 2.0 secure authentication
+* Automatic user creation on first login
+* Stores GitHub ID, name, email, and avatar
+* Session‑based authentication
+* Logout functionality
+* Clean Bootstrap UI
+* Easily extendable to Google, Facebook, LinkedIn, etc.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Project Screenshots
 
-## Contributing
+Home Page
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<img src="https://github.com/user-attachments/assets/ca6f6f70-fca9-45b8-a927-88f517993f22" />
 
-## Code of Conduct
+Login Page
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<img src="https://github.com/user-attachments/assets/07cd1dab-0e5e-43e7-865a-bf415aebc688" />
 
-## Security Vulnerabilities
+Register Page
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<img src="https://github.com/user-attachments/assets/668e23a3-d879-4379-a309-efec05457f8b" />
 
-## License
+Dashboard Page
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<img src="https://github.com/user-attachments/assets/ed1c4156-7313-4077-ad5f-2dc7dd7c26a3" />
+
+GitHub Authorization Screen
+
+<img src="https://github.com/user-attachments/assets/72bc5baf-c9ab-4abb-ac16-cf1290b9bace" />
+
+GitHub App Creation Screen
+
+<img src="https://github.com/user-attachments/assets/8d27d085-ce33-4861-9407-f477fd89d9f4" />
+
+---
+
+## Prerequisites
+
+* PHP 8.1 or higher
+* Laravel 12
+* Composer
+* GitHub Developer Account
+* MySQL (optional)
+
+---
+
+## Installation Guide
+
+### Step 1: Create Laravel Project
+
+```bash
+composer create-project laravel/laravel laravel-socialite
+cd laravel-socialite
+```
+
+### Step 2: Install Laravel Socialite
+
+```bash
+composer require laravel/socialite
+```
+
+### Step 3: Create GitHub OAuth Application
+
+Visit GitHub Developer Settings:
+
+```
+https://github.com/settings/apps
+```
+
+Create a new OAuth App with the following values:
+
+Application Name:
+Laravel Socialite App
+
+Homepage URL:
+[http://localhost:8000](http://localhost:8000)
+
+Authorization Callback URL:
+[http://localhost:8000/auth/github/callback](http://localhost:8000/auth/github/callback)
+
+---
+
+### Step 4: Add GitHub Credentials to `.env`
+
+```env
+GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_SECRET=your_client_secret
+GITHUB_REDIRECT_URL=http://localhost:8000/auth/github/callback
+```
+
+---
+
+### Step 5: Configure Socialite Services
+
+Edit `config/services.php`:
+
+```php
+'github' => [
+    'client_id' => env('GITHUB_CLIENT_ID'),
+    'client_secret' => env('GITHUB_CLIENT_SECRET'),
+    'redirect' => env('GITHUB_REDIRECT_URL'),
+],
+```
+
+---
+
+### Step 6: Create GitHub Controller
+
+```bash
+php artisan make:controller GitHubController
+```
+
+`app/Http/Controllers/GitHubController.php`
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+
+class GitHubController extends Controller
+{
+    public function redirect()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function callback()
+    {
+        $githubUser = Socialite::driver('github')->user();
+
+        $user = User::updateOrCreate(
+            ['email' => $githubUser->getEmail()],
+            [
+                'name' => $githubUser->getName(),
+                'provider_id' => $githubUser->getId(),
+                'avatar' => $githubUser->getAvatar(),
+            ]
+        );
+
+        Auth::login($user);
+        return redirect('/dashboard');
+    }
+}
+```
+
+---
+
+### Step 7: Add Routes
+
+Edit `routes/web.php`:
+
+```php
+use App\Http\Controllers\GitHubController;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/', function () {
+    return view('login');
+});
+
+Route::get('/auth/github', [GitHubController::class, 'redirect']);
+Route::get('/auth/github/callback', [GitHubController::class, 'callback']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth');
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+});
+```
+
+---
+
+### Step 8: Update Users Table
+
+Create migration:
+
+```bash
+php artisan make:migration add_social_columns_to_users_table
+```
+
+Migration file:
+
+```php
+Schema::table('users', function (Blueprint $table) {
+    $table->string('provider_id')->nullable();
+    $table->string('avatar')->nullable();
+});
+```
+
+Run migration:
+
+```bash
+php artisan migrate
+```
+
+---
+
+### Step 9: Create Login Page
+
+`resources/views/login.blade.php`
+
+```html
+<a href="{{ url('/auth/github') }}" class="btn btn-dark">
+    Login with GitHub
+</a>
+```
+
+---
+
+### Step 10: Create Dashboard Page
+
+`resources/views/dashboard.blade.php`
+
+```html
+<h2>Welcome, {{ auth()->user()->name }}</h2>
+<img src="{{ auth()->user()->avatar }}" width="80">
+<br><br>
+<a href="/logout" class="btn btn-danger">Logout</a>
+```
+
+---
+
+## Project Structure
+
+```
+laravel-socialite/
+├── app/
+│   └── Http/Controllers/GitHubController.php
+├── resources/views/
+│   ├── login.blade.php
+│   └── dashboard.blade.php
+├── routes/web.php
+├── config/services.php
+└── .env
+```
+
+---
+
