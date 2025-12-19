@@ -1,99 +1,150 @@
 # PHP_Laravel12_Socialite_GitHub_Login
 
-A complete Laravel 12 application demonstrating **GitHub OAuth Login** using **Laravel Socialite**.  
-This project includes full installation steps, controller setup, routing, views,  
-GitHub OAuth app configuration, user creation, session login, and logout functionality.
+A complete Laravel 12 application demonstrating **GitHub OAuth authentication** using **Laravel Socialite**.
+This project explains the full flow from GitHub OAuth app creation to user login, session handling, and logout using a clean and beginner‑friendly approach.
 
 ---
 
-##  Features
-- GitHub OAuth Login using Laravel Socialite  
-- Secure OAuth 2.0 authentication  
-- Automatic user creation on first login  
-- Stores GitHub ID, name, email, and avatar  
-- Session-based login system  
-- Logout support  
-- Clean Bootstrap UI  
-- Extendable for Google, Facebook, LinkedIn, and more  
+## Project Overview
+
+This repository helps developers understand:
+
+* How GitHub OAuth works with Laravel Socialite
+* How to configure OAuth credentials securely
+* How to authenticate users using GitHub
+* How to automatically create users on first login
+* How to manage sessions and logout
+
+This project is suitable for:
+
+* Laravel beginners
+* OAuth and Social Login learning
+* Interview preparation
+* Reference for Socialite integration
 
 ---
 
-## Screenshots
+## Features
 
-### Home Page
-![Login Screenshot](https://github.com/user-attachments/assets/ca6f6f70-fca9-45b8-a927-88f517993f22)
-
-### Login Page
-![GitHub Auth](https://github.com/user-attachments/assets/07cd1dab-0e5e-43e7-865a-bf415aebc688)
-
-### Register Page
-![Dashboard](https://github.com/user-attachments/assets/668e23a3-d879-4379-a309-efec05457f8b)
-
-### Dashboard Page
-<img width="1909" height="971" alt="image" src="https://github.com/user-attachments/assets/ed1c4156-7313-4077-ad5f-2dc7dd7c26a3" />
+* Laravel 12
+* GitHub OAuth Login using Laravel Socialite
+* OAuth 2.0 secure authentication
+* Automatic user creation on first login
+* Stores GitHub ID, name, email, and avatar
+* Session‑based authentication
+* Logout functionality
+* Clean Bootstrap UI
+* Easily extendable to Google, Facebook, LinkedIn, etc.
 
 ---
 
-### GitHub Authorization Screen
-<img width="1536" height="701" alt="image" src="https://github.com/user-attachments/assets/72bc5baf-c9ab-4abb-ac16-cf1290b9bace" />
+## Project Screenshots
 
-### 2. Add Application details and Click on submit button
+Home Page
 
-<img width="1532" height="687" alt="image" src="https://github.com/user-attachments/assets/8d27d085-ce33-4861-9407-f477fd89d9f4" />
+<img src="https://github.com/user-attachments/assets/ca6f6f70-fca9-45b8-a927-88f517993f22" />
 
+Login Page
 
+<img src="https://github.com/user-attachments/assets/07cd1dab-0e5e-43e7-865a-bf415aebc688" />
+
+Register Page
+
+<img src="https://github.com/user-attachments/assets/668e23a3-d879-4379-a309-efec05457f8b" />
+
+Dashboard Page
+
+<img src="https://github.com/user-attachments/assets/ed1c4156-7313-4077-ad5f-2dc7dd7c26a3" />
+
+GitHub Authorization Screen
+
+<img src="https://github.com/user-attachments/assets/72bc5baf-c9ab-4abb-ac16-cf1290b9bace" />
+
+GitHub App Creation Screen
+
+<img src="https://github.com/user-attachments/assets/8d27d085-ce33-4861-9407-f477fd89d9f4" />
+
+---
 
 ## Prerequisites
-- PHP 8.1+
-- Laravel 12
-- Composer
-- GitHub Developer Account
-- MySQL (optional)
+
+* PHP 8.1 or higher
+* Laravel 12
+* Composer
+* GitHub Developer Account
+* MySQL (optional)
 
 ---
 
-# Installation Guide
+## Installation Guide
 
-## Step 1 — Create Laravel Project
+### Step 1: Create Laravel Project
+
 ```bash
 composer create-project laravel/laravel laravel-socialite
 cd laravel-socialite
+```
 
-Step 2 — Install Socialite
+### Step 2: Install Laravel Socialite
+
+```bash
 composer require laravel/socialite
+```
 
-Step 3 — Create GitHub OAuth App
+### Step 3: Create GitHub OAuth Application
 
-Visit:
+Visit GitHub Developer Settings:
+
+```
 https://github.com/settings/apps
- → New OAuth App
+```
 
-Use:
+Create a new OAuth App with the following values:
 
-Setting	Value
-Application Name	Laravel Socialite App
-Homepage URL	http://localhost:8000
+Application Name:
+Laravel Socialite App
 
-Authorization Callback URL	http://localhost:8000/auth/github/callback
-Step 4 — Add GitHub Credentials to .env
+Homepage URL:
+[http://localhost:8000](http://localhost:8000)
+
+Authorization Callback URL:
+[http://localhost:8000/auth/github/callback](http://localhost:8000/auth/github/callback)
+
+---
+
+### Step 4: Add GitHub Credentials to `.env`
+
+```env
 GITHUB_CLIENT_ID=your_client_id
 GITHUB_CLIENT_SECRET=your_client_secret
 GITHUB_REDIRECT_URL=http://localhost:8000/auth/github/callback
+```
 
-Step 5 — Configure Services
+---
 
-Edit: config/services.php
+### Step 5: Configure Socialite Services
 
+Edit `config/services.php`:
+
+```php
 'github' => [
-    'client_id'     => env('GITHUB_CLIENT_ID'),
+    'client_id' => env('GITHUB_CLIENT_ID'),
     'client_secret' => env('GITHUB_CLIENT_SECRET'),
-    'redirect'      => env('GITHUB_REDIRECT_URL'),
+    'redirect' => env('GITHUB_REDIRECT_URL'),
 ],
+```
 
-Step 6 — Create Controller
+---
+
+### Step 6: Create GitHub Controller
+
+```bash
 php artisan make:controller GitHubController
+```
 
-GitHubController.php
+`app/Http/Controllers/GitHubController.php`
+
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -118,7 +169,7 @@ class GitHubController extends Controller
             [
                 'name' => $githubUser->getName(),
                 'provider_id' => $githubUser->getId(),
-                'avatar' => $githubUser->getAvatar()
+                'avatar' => $githubUser->getAvatar(),
             ]
         );
 
@@ -126,12 +177,21 @@ class GitHubController extends Controller
         return redirect('/dashboard');
     }
 }
+```
 
-Step 7 — Add Routes
+---
 
-Add the following to routes/web.php:
+### Step 7: Add Routes
 
+Edit `routes/web.php`:
+
+```php
 use App\Http\Controllers\GitHubController;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/', function () {
+    return view('login');
+});
 
 Route::get('/auth/github', [GitHubController::class, 'redirect']);
 Route::get('/auth/github/callback', [GitHubController::class, 'callback']);
@@ -144,49 +204,73 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
+```
 
-Step 8 — Update Users Table
+---
+
+### Step 8: Update Users Table
+
+Create migration:
+
+```bash
 php artisan make:migration add_social_columns_to_users_table
+```
 
+Migration file:
 
-Add inside migration:
-
+```php
 Schema::table('users', function (Blueprint $table) {
     $table->string('provider_id')->nullable();
     $table->string('avatar')->nullable();
 });
-
+```
 
 Run migration:
 
+```bash
 php artisan migrate
+```
 
-Step 9 — Create Login Page
+---
 
-Create: resources/views/login.blade.php
+### Step 9: Create Login Page
 
+`resources/views/login.blade.php`
+
+```html
 <a href="{{ url('/auth/github') }}" class="btn btn-dark">
     Login with GitHub
 </a>
+```
 
-Step 10 — Dashboard Page
+---
 
-Create: resources/views/dashboard.blade.php
+### Step 10: Create Dashboard Page
 
+`resources/views/dashboard.blade.php`
+
+```html
 <h2>Welcome, {{ auth()->user()->name }}</h2>
 <img src="{{ auth()->user()->avatar }}" width="80">
 <br><br>
 <a href="/logout" class="btn btn-danger">Logout</a>
+```
 
-Project Structure
+---
+
+## Project Structure
+
+```
 laravel-socialite/
 ├── app/
 │   └── Http/Controllers/GitHubController.php
-├── resources/
-│   └── views/
-│       ├── login.blade.php
-│       └── dashboard.blade.php
+├── resources/views/
+│   ├── login.blade.php
+│   └── dashboard.blade.php
 ├── routes/web.php
 ├── config/services.php
 └── .env
+```
+
+---
 
