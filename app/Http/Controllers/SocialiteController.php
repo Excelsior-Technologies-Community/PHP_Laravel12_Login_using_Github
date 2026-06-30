@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\LoginHistory;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -18,20 +19,20 @@ class SocialiteController extends Controller
     {
         try {
             $githubUser = Socialite::driver('github')->user();
-            
+
             // Handle email (GitHub might not return email if not public)
             $email = $githubUser->email;
             if (!$email) {
                 $email = 'github-' . $githubUser->id . '@example.com';
             }
-            
+
             // Check if user exists by github_id
             $user = User::where('github_id', $githubUser->id)->first();
-            
+
             if (!$user) {
                 // Check if user exists by email
                 $user = User::where('email', $email)->first();
-                
+
                 if ($user) {
                     // Update existing user with GitHub credentials
                     $user->update([
@@ -57,12 +58,20 @@ class SocialiteController extends Controller
                     'github_refresh_token' => $githubUser->refreshToken,
                 ]);
             }
-            
+
             // Log the user in
             Auth::login($user, true);
-            
+
+            LoginHistory::create([
+                'user_id' => $user->id,
+                'login_method' => 'GitHub',
+                'ip_address' => request()->ip(),
+                'browser' => request()->userAgent(),
+                'login_at' => now(),
+            ]);
+
             return redirect()->route('dashboard');
-            
+
         } catch (\Exception $e) {
             return redirect()->route('login')->withErrors([
                 'github' => 'GitHub authentication failed. Please try again.'
