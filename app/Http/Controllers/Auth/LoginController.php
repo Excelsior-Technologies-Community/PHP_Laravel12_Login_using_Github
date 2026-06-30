@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Models\LoginHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +21,19 @@ class LoginController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        
+
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard');
         }
+
+        LoginHistory::create([
+            'user_id' => Auth::id(),
+            'login_method' => 'Email',
+            'ip_address' => $request->ip(),
+            'browser' => $request->userAgent(),
+            'login_at' => now(),
+        ]);
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
