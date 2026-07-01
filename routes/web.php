@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GithubProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/login-history', [LoginHistoryController::class, 'index'])
         ->name('login.history');
+
+    Route::get('/github/profile', [GithubProfileController::class, 'index'])
+        ->name('github.profile');
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
