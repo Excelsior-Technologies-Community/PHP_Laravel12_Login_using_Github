@@ -111,7 +111,25 @@
 
         <div class="profile">
 
-            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D6EFD&color=fff">
+            @if(Auth::user()->github_id && !empty($githubProfile['avatar_url']))
+
+            <img
+                src="{{ $githubProfile['avatar_url'] }}"
+                class="rounded-circle"
+                width="90"
+                height="90"
+                alt="GitHub Profile">
+
+            @else
+
+            <img
+                src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D6EFD&color=fff"
+                class="rounded-circle"
+                width="90"
+                height="90"
+                alt="User Profile">
+
+            @endif
 
             <h5 class="mt-3">
                 {{ Auth::user()->name }}
@@ -125,15 +143,15 @@
 
             @if(Auth::user()->github_id)
 
-                <span class="badge bg-success mt-2">
-                    GitHub Connected
-                </span>
+            <span class="badge bg-success mt-2">
+                GitHub Connected
+            </span>
 
             @else
 
-                <span class="badge bg-primary mt-2">
-                    Email Login
-                </span>
+            <span class="badge bg-primary mt-2">
+                Email Login
+            </span>
 
             @endif
 
@@ -147,6 +165,11 @@
         <a href="{{ route('users.index') }}">
             <i class="bi bi-people"></i>
             Users
+        </a>
+
+        <a href="{{ route('github.profile') }}">
+            <i class="bi bi-github"></i>
+            GitHub Analytics
         </a>
 
         <a href="{{ route('login.history') }}">
@@ -219,7 +242,7 @@
                         </h3>
 
                         <p class="text-muted mb-0">
-                            You are successfully logged into the Laravel GitHub Authentication System.
+                            You are logged into Laravel OAuth Dashboard with GitHub Analytics, Repository Explorer and Login Tracking.
                         </p>
 
                     </div>
@@ -228,15 +251,15 @@
 
                         @if(Auth::user()->github_id)
 
-                            <span class="badge bg-success fs-6">
-                                GitHub OAuth Login
-                            </span>
+                        <span class="badge bg-success fs-6">
+                            GitHub Analytics Enabled
+                        </span>
 
                         @else
 
-                            <span class="badge bg-primary fs-6">
-                                Email Login
-                            </span>
+                        <span class="badge bg-primary fs-6">
+                            Email Login
+                        </span>
 
                         @endif
 
@@ -332,6 +355,117 @@
 
         </div>
 
+        <!-- GitHub Analytics Statistics -->
+
+        <div class="row mt-4">
+
+
+            <div class="col-md-3 mb-4">
+
+                <div class="card shadow border-0 bg-dark text-white">
+
+                    <div class="card-body">
+
+                        <h6>
+                            GitHub Repositories
+                        </h6>
+
+                        <h1 class="fw-bold">
+                            {{ $githubRepositories }}
+                        </h1>
+
+                        <small>
+                            Public Repositories
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3 mb-4">
+
+                <div class="card shadow border-0 bg-warning">
+
+                    <div class="card-body">
+
+                        <h6>
+                            GitHub Stars
+                        </h6>
+
+                        <h1 class="fw-bold">
+                            ⭐ {{ $githubStars }}
+                        </h1>
+
+                        <small>
+                            Total Stars
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3 mb-4">
+
+                <div class="card shadow border-0 bg-success text-white">
+
+                    <div class="card-body">
+
+                        <h6>
+                            Forks
+                        </h6>
+
+                        <h1 class="fw-bold">
+                            🍴 {{ $githubForks }}
+                        </h1>
+
+                        <small>
+                            Repository Forks
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-3 mb-4">
+
+                <div class="card shadow border-0 bg-primary text-white">
+
+                    <div class="card-body">
+
+                        <h6>
+                            Top Language
+                        </h6>
+
+                        <h2 class="fw-bold">
+                            {{ $githubLanguage }}
+                        </h2>
+
+                        <small>
+                            Most Used Language
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
         <!-- Account Information -->
         <div class="row">
 
@@ -381,15 +515,15 @@
 
                                     @if(Auth::user()->github_id)
 
-                                        <span class="badge bg-dark">
-                                            GitHub OAuth
-                                        </span>
+                                    <span class="badge bg-dark">
+                                        GitHub OAuth
+                                    </span>
 
                                     @else
 
-                                        <span class="badge bg-primary">
-                                            Email Login
-                                        </span>
+                                    <span class="badge bg-primary">
+                                        Email Login
+                                    </span>
 
                                     @endif
 
@@ -421,6 +555,15 @@
                     <div class="card-body">
 
                         <div class="d-grid gap-3">
+
+                            <a href="{{ route('github.profile') }}"
+                                class="btn btn-outline-dark">
+
+                                <i class="bi bi-github"></i>
+
+                                GitHub Analytics
+
+                            </a>
 
                             <a href="{{ route('users.index') }}" class="btn btn-outline-primary">
 
@@ -486,97 +629,97 @@
 
                         @if(Auth::user()->loginHistories->count())
 
-                            <div class="table-responsive">
+                        <div class="table-responsive">
 
-                                <table class="table table-hover align-middle">
+                            <table class="table table-hover align-middle">
 
-                                    <thead class="table-light">
+                                <thead class="table-light">
 
-                                        <tr>
+                                    <tr>
 
-                                            <th>#</th>
+                                        <th>#</th>
 
-                                            <th>Login Method</th>
+                                        <th>Login Method</th>
 
-                                            <th>IP Address</th>
+                                        <th>IP Address</th>
 
-                                            <th>Browser</th>
+                                        <th>Browser</th>
 
-                                            <th>Login Time</th>
+                                        <th>Login Time</th>
 
-                                        </tr>
+                                    </tr>
 
-                                    </thead>
+                                </thead>
 
-                                    <tbody>
+                                <tbody>
 
-                                        @foreach(Auth::user()->loginHistories->take(5) as $history)
+                                    @foreach(Auth::user()->loginHistories->take(5) as $history)
 
-                                            <tr>
+                                    <tr>
 
-                                                <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $loop->iteration }}</td>
 
-                                                <td>
+                                        <td>
 
-                                                    @if($history->login_method == 'GitHub')
+                                            @if($history->login_method == 'GitHub')
 
-                                                        <span class="badge bg-dark">
+                                            <span class="badge bg-dark">
 
-                                                            <i class="bi bi-github"></i>
+                                                <i class="bi bi-github"></i>
 
-                                                            GitHub
+                                                GitHub
 
-                                                        </span>
+                                            </span>
 
-                                                    @else
+                                            @else
 
-                                                        <span class="badge bg-primary">
+                                            <span class="badge bg-primary">
 
-                                                            Email
+                                                Email
 
-                                                        </span>
+                                            </span>
 
-                                                    @endif
+                                            @endif
 
-                                                </td>
+                                        </td>
 
-                                                <td>{{ $history->ip_address }}</td>
+                                        <td>{{ $history->ip_address }}</td>
 
-                                                <td>
+                                        <td>
 
-                                                    {{ Str::limit($history->browser, 40) }}
+                                            {{ Str::limit($history->browser, 40) }}
 
-                                                </td>
+                                        </td>
 
-                                                <td>
+                                        <td>
 
-                                                    {{ \Carbon\Carbon::parse($history->login_at)->format('d M Y h:i A') }}
+                                            {{ \Carbon\Carbon::parse($history->login_at)->format('d M Y h:i A') }}
 
-                                                </td>
+                                        </td>
 
-                                            </tr>
+                                    </tr>
 
-                                        @endforeach
+                                    @endforeach
 
-                                    </tbody>
+                                </tbody>
 
-                                </table>
+                            </table>
 
-                            </div>
+                        </div>
 
                         @else
 
-                            <div class="text-center py-5">
+                        <div class="text-center py-5">
 
-                                <i class="bi bi-clock-history display-4 text-secondary"></i>
+                            <i class="bi bi-clock-history display-4 text-secondary"></i>
 
-                                <h5 class="mt-3">
+                            <h5 class="mt-3">
 
-                                    No Login History Found
+                                No Login History Found
 
-                                </h5>
+                            </h5>
 
-                            </div>
+                        </div>
 
                         @endif
 
@@ -603,7 +746,7 @@
 
                     <p class="text-muted mb-2">
 
-                        Dashboard with GitHub OAuth, User Management, Login History and Analytics.
+                        Dashboard with GitHub OAuth, User Management, Login History, GitHub Analytics and Repository Explorer.
 
                     </p>
 
