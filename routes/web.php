@@ -8,6 +8,9 @@ use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GithubProfileController;
+use App\Http\Controllers\GithubRepoGistController;
+use App\Http\Controllers\GithubAccountSecurityController;
+use App\Http\Controllers\GithubOrgsCommitsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +73,26 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/github/profile', [GithubProfileController::class, 'index'])
         ->name('github.profile');
+
+    /* Module 1: Repositories & Gists */
+    Route::get('/github/repos', [GithubRepoGistController::class, 'index'])
+        ->name('github.repos');
+    Route::post('/github/gists/create', [GithubRepoGistController::class, 'createGist'])
+        ->name('github.gists.create');
+    Route::post('/github/repos/star/{repoName}', [GithubRepoGistController::class, 'starRepo'])
+        ->name('github.repos.star');
+
+    /* Module 2: Account Security & OAuth Watchdog */
+    Route::get('/github/security', [GithubAccountSecurityController::class, 'index'])
+        ->name('github.security');
+    Route::post('/github/security/unlink', [GithubAccountSecurityController::class, 'unlinkGithub'])
+        ->name('github.security.unlink');
+
+    /* Module 3: Orgs & Commits Timeline & Exporter */
+    Route::get('/github/timeline', [GithubOrgsCommitsController::class, 'index'])
+        ->name('github.timeline');
+    Route::get('/github/export', [GithubOrgsCommitsController::class, 'exportData'])
+        ->name('github.export');
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
