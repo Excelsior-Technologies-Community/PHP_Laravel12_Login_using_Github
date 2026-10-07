@@ -162,29 +162,34 @@
             Dashboard
         </a>
 
+        <a href="{{ route('github.repos') }}">
+            <i class="bi bi-journal-code"></i>
+            Repos & Gists Studio
+        </a>
+
+        <a href="{{ route('github.security') }}">
+            <i class="bi bi-shield-lock"></i>
+            Security & OAuth Token
+        </a>
+
+        <a href="{{ route('github.timeline') }}">
+            <i class="bi bi-diagram-3"></i>
+            Orgs & Activity Feed
+        </a>
+
+        <a href="{{ route('github.profile') }}">
+            <i class="bi bi-graph-up"></i>
+            GitHub Analytics
+        </a>
+
         <a href="{{ route('users.index') }}">
             <i class="bi bi-people"></i>
             Users
         </a>
 
-        <a href="{{ route('github.profile') }}">
-            <i class="bi bi-github"></i>
-            GitHub Analytics
-        </a>
-
         <a href="{{ route('login.history') }}">
             <i class="bi bi-clock-history"></i>
             Login History
-        </a>
-
-        <a href="#">
-            <i class="bi bi-person"></i>
-            Profile
-        </a>
-
-        <a href="#">
-            <i class="bi bi-gear"></i>
-            Settings
         </a>
 
         <hr class="text-secondary">
